@@ -2,6 +2,7 @@ package com.example.sumeetassignment1;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 // To change color of selected button from blue to dark_blue
                 updateButtonColors();
                 //Conversion function called
-                convertTemprature();
+                convertTemperature();
             }
         });
 
@@ -46,27 +47,32 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 isCelsiusSelected = false;
                 updateButtonColors();
-                convertTemprature();
+                convertTemperature();
             }
         });
     }
 
     //Convert temperature on the basis of selected button
-    private void convertTemprature() {
+    private void convertTemperature() {
         String tempInput = binding.editTextTemperature.getText().toString();
         if (!tempInput.isEmpty()) {
-            double inputTemp = Double.parseDouble(tempInput);
-            if (isCelsiusSelected) {
-                //Convert Celsius into Fahrenheit
-                double convertedTemp = (inputTemp * 9 / 5) + 32;
-                binding.textViewConvertedTemp.setText(String.format("%.2f ℉", convertedTemp));
-            } else {
-                //Convert Fahrenheit into Celsius
-                double convertedTemp = (inputTemp - 32) * 5 / 9;
-                binding.textViewConvertedTemp.setText(String.format("%.2f ℃", convertedTemp));
+            try {
+                double inputTemp = Double.parseDouble(tempInput);
+                if (isCelsiusSelected) {
+                    // Convert Celsius to Fahrenheit
+                    double convertedTemp = (inputTemp * 9 / 5) + 32;
+                    binding.textViewConvertedTemp.setText(String.format("%.2f ℉", convertedTemp));
+                } else {
+                    // Convert Fahrenheit to Celsius
+                    double convertedTemp = (inputTemp - 32) * 5 / 9;
+                    binding.textViewConvertedTemp.setText(String.format("%.2f ℃", convertedTemp));
+                }
+            } catch (NumberFormatException e) {
+                // Display an error message if input is not a valid number
+                Toast.makeText(this, "Please enter a valid numeric temperature", Toast.LENGTH_SHORT).show();
             }
         } else {
-            // empty output text view if no input is given
+            // Empty output text view if no input is given
             binding.textViewConvertedTemp.setText("");
         }
     }
