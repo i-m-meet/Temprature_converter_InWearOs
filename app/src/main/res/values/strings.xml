@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SumeetAssignment1</string>
+    <string name="heading"> TempConvert</string>
+    <string name="hint">Enter Temp</string>
+    <string name="Celcius">°C</string>
+    <string name="Fahrenheit">°F</string>
+    <string name="converted_heading">Converted Temperature</string>
 </resources>
